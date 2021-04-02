@@ -20,7 +20,7 @@ export default function Home(initialData) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let giphys = await fetch(
-      `https://api.giphy.com/v1/gifs/search?q=${formInputs.searchTerm}&api_key=${process.env.API_KEY}&limit=10`
+      `https://api.giphy.com/v1/gifs/search?q=${formInputs.searchTerm}&api_key=${process.env.API_KEY}&limit=40`
     );
     giphys = await giphys.json();
     setSearchResults(giphys.data);
