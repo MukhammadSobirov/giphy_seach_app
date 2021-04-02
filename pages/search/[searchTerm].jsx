@@ -8,7 +8,7 @@ export default function Search(props) {
   return (
     <>
       <Head>
-        <title>Search</title>
+        <title>Search results for {router.query.searchTerm}</title>
         <link rel="icon" href="/favicon.ico" />
         <link rel="stylesheet" href="/styles.css" />
       </Head>
@@ -37,7 +37,7 @@ export default function Search(props) {
 export async function getServerSideProps(context) {
   const searchTerm = context.query.searchTerm;
   let giphys = await fetch(
-    `https://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=RUtcgrBUha03XCX45ON17U59vhhmcZy1&limit=40`
+    `https://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=${process.env.API_KEY}&limit=40`
   );
   giphys = await giphys.json();
   return { props: { giphys: giphys.data } };

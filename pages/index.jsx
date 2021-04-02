@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 export default function Home(initialData) {
   const [formInputs, setFormInputs] = useState();
   const [searchResults, setSearchResults] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("movie");
+  const [searchTerm, setSearchTerm] = useState("The walking dead");
 
   useEffect(() => {
     setSearchResults(initialData.catGifs.data);
@@ -20,7 +20,7 @@ export default function Home(initialData) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let giphys = await fetch(
-      `https://api.giphy.com/v1/gifs/search?q=${formInputs.searchTerm}&api_key=RUtcgrBUha03XCX45ON17U59vhhmcZy1&limit=10`
+      `https://api.giphy.com/v1/gifs/search?q=${formInputs.searchTerm}&api_key=${process.env.API_KEY}&limit=10`
     );
     giphys = await giphys.json();
     setSearchResults(giphys.data);
@@ -30,7 +30,8 @@ export default function Home(initialData) {
     <>
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>Giphy Search App</title>
+        <meta name="description" content="Love giphys? We do too. Use our advanced giphy search to find the perfect giphy for any occation"></meta>
         <link rel="icon" href="/favicon.ico" />
         <link rel="stylesheet" href="/styles.css" />
       </Head>
@@ -64,7 +65,7 @@ export default function Home(initialData) {
 // example of statically generated page
 // export async function getStaticProps() {
 //   let catGifs = await fetch(
-//     `https://api.giphy.com/v1/gifs/search?q=cats&api_key=RUtcgrBUha03XCX45ON17U59vhhmcZy1&limit=10`
+//     `https://api.giphy.com/v1/gifs/search?q=cats&api_key=${process.env.API_KEY}&limit=10`
 //   );
 //   catGifs = await catGifs.json();
 //   return { props: { catGifs: catGifs } };
@@ -73,7 +74,7 @@ export default function Home(initialData) {
 //in order to ssr page just change the function name into getServerSideProps and it'll do the magic
 export async function getServerSideProps() {
   let catGifs = await fetch(
-    `https://api.giphy.com/v1/gifs/search?q=movie&api_key=RUtcgrBUha03XCX45ON17U59vhhmcZy1&limit=40`
+    `https://api.giphy.com/v1/gifs/search?q=thewalkingdead&api_key=${process.env.API_KEY}&limit=40`
   );
   catGifs = await catGifs.json();
   return { props: { catGifs: catGifs } };
